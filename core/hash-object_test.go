@@ -55,7 +55,6 @@ func TestHashObjectWrite(t *testing.T) {
 		}
 		defer file.Close()
 
-		// Verify the file's contents are correct by decompressing them.
 		r, err := zlib.NewReader(file)
 		if err != nil {
 			t.Fatalf("could not create zlib reader for object file: %v", err)

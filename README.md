@@ -6,7 +6,7 @@ git client written in go for fun
 ## TODO
 
 - [x] init
-- [ ] hash-object
+- [x] hash-object
 - [ ] cat-file
 - [ ] write-tree
 - [ ] commit-tree

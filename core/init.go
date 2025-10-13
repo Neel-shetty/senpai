@@ -11,6 +11,11 @@ var repoDirName = ".senpai"
 func InitRepo(path string, initialBranch string) error {
 	repoPath := filepath.Join(path, repoDirName)
 
+	if _, err := os.Stat(repoPath); err == nil {
+		fmt.Println("Reinitialized existing repository at", repoPath)
+		return nil
+	}
+
 	if err := os.MkdirAll(repoPath, 0755); err != nil {
 		return fmt.Errorf("failed to create repo folder: %w", err)
 	}

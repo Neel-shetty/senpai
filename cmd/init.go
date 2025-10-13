@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"senpai/core"
 
 	"github.com/spf13/cobra"
 )
@@ -13,7 +14,11 @@ var initCmd = &cobra.Command{
 	Short: "Initializes an empty git repository in the current directory",
 	Long:  `This command creates an empty Git repository - basically a .git directory with subdirectories for objects, refs/heads, refs/tags, and template files. An initial branch without any commits will be created`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("new git repository created with branch:", initialBranch)
+		if err := core.InitRepo(".", initialBranch); err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		fmt.Println("Initialized empty repository on branch", initialBranch)
 	},
 }
 

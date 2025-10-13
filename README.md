@@ -7,12 +7,12 @@ git client written in go for fun
 
 - [x] init
 - [x] hash-object
-- [ ] cat-file
+- [x] cat-file
 - [ ] write-tree
 - [ ] commit-tree
 - [ ] add
 - [ ] status
 - [ ] commit
 - [ ] log
-- [ ]. branch
-- [ ]. checkout
+- [ ] branch
+- [ ] checkout

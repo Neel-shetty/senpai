@@ -1,4 +1,3 @@
-// Optional: check subdirs still exist
 package core
 
 import (

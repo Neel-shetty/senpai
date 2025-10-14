@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestAddFile(t *testing.T) {
+func TestAddFiles(t *testing.T) {
 	tmpDir := t.TempDir()
 	oldRepo := repoDirName
 	repoDirName = ".senpai"
@@ -18,13 +18,24 @@ func TestAddFile(t *testing.T) {
 		t.Fatalf("InitRepo failed: %v", err)
 	}
 
-	filePath := filepath.Join(repoPath, "hello.txt")
-	if err := os.WriteFile(filePath, []byte("Hello world!"), 0644); err != nil {
-		t.Fatalf("failed to create test file: %v", err)
+	// Create test files
+	file1 := filepath.Join(repoPath, "hello.txt")
+	file2 := filepath.Join(repoPath, "world.txt")
+	if err := os.WriteFile(file1, []byte("Hello world!"), 0644); err != nil {
+		t.Fatalf("failed to create file1: %v", err)
+	}
+	if err := os.WriteFile(file2, []byte("Another file"), 0644); err != nil {
+		t.Fatalf("failed to create file2: %v", err)
 	}
 
-	if err := Add(repoPath, filePath); err != nil {
-		t.Fatalf("AddFile failed: %v", err)
+	// Add single file
+	if err := Add(repoPath, file1); err != nil {
+		t.Fatalf("Add single file failed: %v", err)
+	}
+
+	// Add multiple files
+	if err := Add(repoPath, file1, file2); err != nil {
+		t.Fatalf("Add multiple files failed: %v", err)
 	}
 
 	indexPath := filepath.Join(repoPath, ".senpai", "index")
@@ -33,18 +44,25 @@ func TestAddFile(t *testing.T) {
 		t.Fatalf("failed to read index: %v", err)
 	}
 
+	lines := strings.Split(strings.TrimSpace(string(data)), "\n")
+	if len(lines) != 2 {
+		t.Errorf("expected 2 entries in index, got %d lines", len(lines))
+	}
+
 	content := string(data)
-	if !strings.Contains(content, "100644") || !strings.Contains(content, "hello.txt") {
-		t.Errorf("index missing expected entry, got: %q", content)
+	for _, f := range []string{"hello.txt", "world.txt"} {
+		if !strings.Contains(content, f) {
+			t.Errorf("index missing expected entry %q", f)
+		}
 	}
 
-	if err := Add(repoPath, filePath); err != nil {
-		t.Fatalf("AddFile failed second time: %v", err)
+	// Add same files again, ensure no duplicates
+	if err := Add(repoPath, file1, file2); err != nil {
+		t.Fatalf("Add duplicate files failed: %v", err)
 	}
-
 	data2, _ := os.ReadFile(indexPath)
-	lines := strings.Split(strings.TrimSpace(string(data2)), "\n")
-	if len(lines) != 1 {
-		t.Errorf("expected single entry in index, got %d lines", len(lines))
+	lines2 := strings.Split(strings.TrimSpace(string(data2)), "\n")
+	if len(lines2) != 2 {
+		t.Errorf("expected 2 entries after duplicate add, got %d lines", len(lines2))
 	}
 }

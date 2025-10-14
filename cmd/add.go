@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"senpai/core"
 
 	"github.com/spf13/cobra"
 )
@@ -12,7 +13,13 @@ var addCmd = &cobra.Command{
 	Short: "Add file contents to the index",
 	Long:  "This command updates the index using the current content found in the working tree, to prepare the content staged for the next commit.",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Println("add called")
+		if len(args) == 0 {
+			return fmt.Errorf("no files specified")
+		}
+		if err := core.Add(".", args...); err != nil {
+			return err
+		}
+		fmt.Println("Files added successfully")
 		return nil
 	},
 }

@@ -7,7 +7,16 @@ import (
 	"strings"
 )
 
-func Add(repoPath string, filePath string) error {
+func Add(repoPath string, filePaths ...string) error {
+	for _, filePath := range filePaths {
+		if err := addSingleFile(repoPath, filePath); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func addSingleFile(repoPath string, filePath string) error {
 	repoIndex := filepath.Join(repoPath, repoDirName, "index")
 
 	content, err := os.ReadFile(filePath)
@@ -28,7 +37,7 @@ func Add(repoPath string, filePath string) error {
 	}
 
 	var lines []string
-	if data, err := os.ReadFile(repoIndex); err != nil {
+	if data, err := os.ReadFile(repoIndex); err == nil {
 		lines = strings.Split(strings.TrimSpace(string(data)), "\n")
 	}
 

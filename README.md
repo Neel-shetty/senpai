@@ -8,7 +8,7 @@ git client written in go for fun
 - [x] init
 - [x] hash-object
 - [x] cat-file
-- [ ] write-tree
+- [x] write-tree
 - [ ] commit-tree
 - [ ] add
 - [ ] status

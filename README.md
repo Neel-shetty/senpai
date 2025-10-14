@@ -10,7 +10,7 @@ git client written in go for fun
 - [x] cat-file
 - [x] write-tree
 - [x] commit-tree
-- [ ] add
+- [x] add
 - [ ] status
 - [ ] commit
 - [ ] log

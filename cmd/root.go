@@ -10,13 +10,13 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "senpai",
 	Short: "senpai wathes your code so you don't screw up... baka!!",
-	Long: `Senpai is a Git-inspired version control tool written in Go.
-It keeps track of your commits, branches, and files, so you don’t have
+	Long: `Senpai is a git inspired version control tool written in Go.
+It keeps track of your commits, branches, and files, so you don't have
 to worry about accidentally deleting everything or messing up your repo.
 
-Commands like init, add, commit, log, and checkout let you play with
+commands like init, add, commit, log, and checkout let you play with
 your code safely. Senpai is here to notice your work and save you
-from your own mistakes—because let’s be honest, you’ll need it.`,
+from your own mistakes because let's be honest, you'll need it.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },

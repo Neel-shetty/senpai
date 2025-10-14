@@ -9,7 +9,7 @@ git client written in go for fun
 - [x] hash-object
 - [x] cat-file
 - [x] write-tree
-- [ ] commit-tree
+- [x] commit-tree
 - [ ] add
 - [ ] status
 - [ ] commit

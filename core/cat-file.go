@@ -11,7 +11,7 @@ import (
 )
 
 func CatFile(hash string, showType, showSize, pretty, exists bool) error {
-	objectDir := filepath.Join(repoDirName, "objects", hash[:2])
+	objectDir := filepath.Join(RepoDirName, "objects", hash[:2])
 	objectPath := filepath.Join(objectDir, hash[2:])
 
 	file, err := os.Open(objectPath)

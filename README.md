@@ -11,7 +11,8 @@ git client written in go for fun
 - [x] write-tree
 - [x] commit-tree
 - [x] add
-- [ ] status
+- [x] status
+- [x] ignore support
 - [ ] commit
 - [ ] log
 - [ ] branch

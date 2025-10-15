@@ -9,9 +9,9 @@ import (
 
 func TestCommitTree(t *testing.T) {
 	tmp := t.TempDir()
-	oldRepo := repoDirName
-	repoDirName = tmp
-	defer func() { repoDirName = oldRepo }()
+	oldRepo := RepoDirName
+	RepoDirName = tmp
+	defer func() { RepoDirName = oldRepo }()
 
 	if err := InitRepo(tmp, "master"); err != nil {
 		t.Fatalf("failed to init repo: %v", err)

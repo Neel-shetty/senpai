@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 )
 
-var repoDirName = ".senpai"
+// var RepoDirName = ".senpai"
 
 func InitRepo(path string, initialBranch string) error {
-	repoPath := filepath.Join(path, repoDirName)
+	repoPath := filepath.Join(path, RepoDirName)
 
 	if _, err := os.Stat(repoPath); err == nil {
 		fmt.Println("Reinitialized existing repository at", repoPath)

@@ -22,7 +22,7 @@ type FileStatus struct {
 }
 
 func Status(repoPath string) ([]FileStatus, error) {
-	indexPath := filepath.Join(repoPath, repoDirName, "index")
+	indexPath := filepath.Join(repoPath, RepoDirName, "index")
 
 	index := map[string]string{}
 	if data, err := os.ReadFile(indexPath); err == nil {
@@ -36,15 +36,37 @@ func Status(repoPath string) ([]FileStatus, error) {
 		}
 	}
 
+	ig, loadErr := LoadIgnore(repoPath)
+	if loadErr !=nil {
+		return nil, loadErr
+	}
+
 	var statuses []FileStatus
 	err := filepath.Walk(repoPath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
+		relPath, _ := filepath.Rel(repoPath, path)
+
 		if info.IsDir() {
+			if info.Name() == RepoDirName {
+				return filepath.SkipDir
+			}
+			if ig != nil && ig.Ignored(relPath, true) {
+				return filepath.SkipDir
+			}
 			return nil
 		}
-		relPath, _ := filepath.Rel(repoPath, path)
+		
+		if strings.HasPrefix(relPath, RepoDirName+string(os.PathSeparator)) || relPath == RepoDirName {
+			return nil
+		}
+		
+		if ig != nil && ig.Ignored(relPath, false){
+			return nil
+		}
+
+		// relPath, _ := filepath.Rel(repoPath, path)
 		content, err := os.ReadFile(path)
 		if err != nil {
 			return err

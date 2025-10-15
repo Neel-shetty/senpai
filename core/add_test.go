@@ -9,9 +9,6 @@ import (
 
 func TestAddFiles(t *testing.T) {
 	tmpDir := t.TempDir()
-	oldRepo := repoDirName
-	repoDirName = ".senpai"
-	t.Cleanup(func() { repoDirName = oldRepo })
 
 	repoPath := tmpDir
 	if err := InitRepo(repoPath, "master"); err != nil {

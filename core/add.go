@@ -17,7 +17,7 @@ func Add(repoPath string, filePaths ...string) error {
 }
 
 func addSingleFile(repoPath string, filePath string) error {
-	repoIndex := filepath.Join(repoPath, repoDirName, "index")
+	repoIndex := filepath.Join(repoPath, RepoDirName, "index")
 
 	content, err := os.ReadFile(filePath)
 	if err != nil {

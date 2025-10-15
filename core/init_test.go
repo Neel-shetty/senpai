@@ -9,6 +9,10 @@ import (
 func TestInitRepoCreateDirs(t *testing.T) {
 	tmpDir := t.TempDir()
 
+	oldRepo := RepoDirName
+	RepoDirName = ".senpai"
+	t.Cleanup(func() { RepoDirName = oldRepo })
+
 	err := InitRepo(tmpDir, "master")
 	repoPath := filepath.Join(tmpDir, ".senpai")
 	if err != nil {
@@ -41,6 +45,10 @@ func TestInitRepoCreateDirs(t *testing.T) {
 
 func TestInitRepoTwice(t *testing.T) {
 	tmpDir := t.TempDir()
+
+	oldRepo := RepoDirName
+	RepoDirName = ".senpai"
+	t.Cleanup(func() { RepoDirName = oldRepo })
 
 	if err := InitRepo(tmpDir, "master"); err != nil {
 		t.Fatalf("first InitRepo failed: %v", err)

@@ -24,9 +24,9 @@ func captureOutput(f func()) string {
 }
 
 func TestCatFile(t *testing.T) {
-	oldRepo := repoDirName
-    repoDirName = t.TempDir()
-    t.Cleanup(func() { repoDirName = oldRepo })
+	oldRepo := RepoDirName
+	RepoDirName = t.TempDir()
+	t.Cleanup(func() { RepoDirName = oldRepo })
 
 	content := []byte("Hello, test object!")
 	objectType := "blob"
@@ -70,9 +70,9 @@ func TestCatFile(t *testing.T) {
 }
 
 func TestCatFileInvalidHash(t *testing.T) {
-	oldRepo := repoDirName
-    repoDirName = t.TempDir()
-    t.Cleanup(func() { repoDirName = oldRepo })
+	oldRepo := RepoDirName
+	RepoDirName = t.TempDir()
+	t.Cleanup(func() { RepoDirName = oldRepo })
 
 	err := CatFile("deadbeef", false, false, false, false)
 	if err == nil {

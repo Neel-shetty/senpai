@@ -35,7 +35,7 @@ func calculateObjectHash(content []byte, objectType string) (string, []byte) {
 }
 
 func writeObject(hash string, data []byte) error {
-	objectDir := filepath.Join(repoDirName, "objects", hash[:2])
+	objectDir := filepath.Join(RepoDirName, "objects", hash[:2])
 	objectPath := filepath.Join(objectDir, hash[2:])
 
 	// skip writing to disk if it already exists

@@ -28,9 +28,9 @@ func TestHashObjectNoWrite(t *testing.T) {
 func TestHashObjectWrite(t *testing.T) {
 	tempDir := t.TempDir()
 
-	originalRepoDir := repoDirName
-	repoDirName = tempDir
-	defer func() { repoDirName = originalRepoDir }()
+	originalRepoDir := RepoDirName
+	RepoDirName = tempDir
+	defer func() { RepoDirName = originalRepoDir }()
 
 	content := []byte("what is up, doc?")
 	objectType := "blob"

@@ -8,9 +8,9 @@ import (
 
 func TestWriteTree(t *testing.T) {
 	tmpDir := t.TempDir()
-	oldRepo := repoDirName
-	repoDirName = tmpDir
-	t.Cleanup(func() { repoDirName = oldRepo })
+	oldRepo := RepoDirName
+	RepoDirName = tmpDir
+	t.Cleanup(func() { RepoDirName = oldRepo })
 
 	os.MkdirAll(filepath.Join(tmpDir, "dirA"), 0755)
 	os.MkdirAll(filepath.Join(tmpDir, "dirB"), 0755)

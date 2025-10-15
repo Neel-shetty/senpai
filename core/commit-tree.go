@@ -9,7 +9,7 @@ import (
 )
 
 func CommitTree(treeHash string, parentHashes []string, message string, author string, email string) (string, error) {
-	repoPath := filepath.Join(repoDirName, "objects")
+	repoPath := filepath.Join(RepoDirName, "objects")
 	if _, err := os.Stat(repoPath); os.IsNotExist(err) {
 		return "", fmt.Errorf("repository not initialized")
 	}

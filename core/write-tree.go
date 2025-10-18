@@ -58,6 +58,9 @@ func WriteTree(dir string) (string, error) {
 	}
 
 	treeHash, err := HashObject(buf.Bytes(), "tree", true)
+	if err != nil {
+		return "", fmt.Errorf("failed to hash tree object %w", err)
+	}
 	return treeHash, nil
 }
 

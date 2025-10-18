@@ -23,7 +23,7 @@ var hashObjectCmd = &cobra.Command{
 		filePath := args[0]
 		data, err := os.ReadFile(filePath)
 		if err != nil {
-			return fmt.Errorf("error reading file: %v\n", err)
+			return fmt.Errorf("error reading file: %v", err)
 		}
 
 		write, _ := cmd.Flags().GetBool("write")

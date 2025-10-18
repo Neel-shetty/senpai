@@ -37,7 +37,7 @@ func Status(repoPath string) ([]FileStatus, error) {
 	}
 
 	ig, loadErr := LoadIgnore(repoPath)
-	if loadErr !=nil {
+	if loadErr != nil {
 		return nil, loadErr
 	}
 
@@ -57,12 +57,12 @@ func Status(repoPath string) ([]FileStatus, error) {
 			}
 			return nil
 		}
-		
+
 		if strings.HasPrefix(relPath, RepoDirName+string(os.PathSeparator)) || relPath == RepoDirName {
 			return nil
 		}
-		
-		if ig != nil && ig.Ignored(relPath, false){
+
+		if ig != nil && ig.Ignored(relPath, false) {
 			return nil
 		}
 
@@ -78,8 +78,10 @@ func Status(repoPath string) ([]FileStatus, error) {
 
 		if idxHash, ok := index[relPath]; ok {
 			if idxHash == hash {
-				statuses = append(statuses, FileStatus{Path: relPath, Status: Unmodified})
+				// File is in index and matches working directory - it's staged
+				statuses = append(statuses, FileStatus{Path: relPath, Status: Staged})
 			} else {
+				// File is in index but working directory has different content
 				statuses = append(statuses, FileStatus{Path: relPath, Status: Modified})
 			}
 		} else {

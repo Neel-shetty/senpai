@@ -13,7 +13,7 @@ git client written in go for fun
 - [x] add
 - [x] status
 - [x] ignore support
-- [ ] commit
+- [x] commit
 - [ ] log
 - [ ] branch
 - [ ] checkout

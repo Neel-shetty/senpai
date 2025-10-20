@@ -1,40 +1,41 @@
-/*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
-*/
 package cmd
 
 import (
 	"fmt"
+	"senpai/core"
 
 	"github.com/spf13/cobra"
 )
 
-// checkoutCmd represents the checkout command
-var checkoutCmd = &cobra.Command{
-	Use:   "checkout",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+var (
+	newBranch bool
+)
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("checkout called")
+var checkoutCmd = &cobra.Command{
+	Use:   "checkout [flags] <branch | commit>",
+	Short: "Switch branches or restore working tree files",
+	Long: `Switches to a specified branch or commit.
+
+Examples:
+  senpai checkout main
+  senpai checkout -b feature/api
+  senpai checkout a1b2c3d
+`,
+	Args: cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		target := args[0]
+
+		if newBranch {
+			fmt.Printf("Creating and switching to new branch: %s\n", target)
+			return core.CheckoutNewBranch(".", target)
+		}
+
+		fmt.Printf("Switching to branch or commit: %s\n", target)
+		return core.Checkout(".", target)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(checkoutCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// checkoutCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// checkoutCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	checkoutCmd.Flags().BoolVarP(&newBranch, "branch", "b", false, "Create and switch to a new branch")
 }

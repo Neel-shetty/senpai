@@ -14,6 +14,6 @@ git client written in go for fun
 - [x] status
 - [x] ignore support
 - [x] commit
-- [ ] log
+- [x] log
 - [ ] branch
 - [ ] checkout

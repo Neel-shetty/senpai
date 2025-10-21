@@ -38,5 +38,9 @@ func InitRepo(path string, initialBranch string) error {
 		return fmt.Errorf("failed to write HEAD file: %w", err)
 	}
 
+	if err := CreateDefaultConfig(path, false); err != nil {
+		return fmt.Errorf("failed to create config file: %w", err)
+	}
+
 	return nil
 }

@@ -41,6 +41,40 @@ func TestInitRepoCreateDirs(t *testing.T) {
 		t.Errorf("HEAD file incorrect: %s", data)
 	}
 
+	configPath := filepath.Join(repoPath, "config")
+	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+		t.Fatalf("config file not created")
+	}
+
+	cfg, err := ParseConfig(tmpDir)
+	if err != nil {
+		t.Fatalf("failed to parse config: %v", err)
+	}
+
+	coreSection, ok := cfg.Sections["core"]
+	if !ok {
+		t.Fatalf("core section not found in config")
+	}
+
+	if coreSection["repositoryformatversion"] != "0" {
+		t.Errorf("expected repositoryformatversion=0, got %s", coreSection["repositoryformatversion"])
+	}
+
+	filemode := coreSection["filemode"]
+	if filemode != "true" && filemode != "false" {
+		t.Errorf("filemode should be 'true' or 'false', got %s", filemode)
+	}
+
+	bare := coreSection["bare"]
+	if bare != "true" && bare != "false" {
+		t.Errorf("bare should be 'true' or 'false', got %s", bare)
+	}
+
+	logallrefupdates := coreSection["logallrefupdates"]
+	if logallrefupdates != "true" && logallrefupdates != "false" {
+		t.Errorf("logallrefupdates should be 'true' or 'false', got %s", logallrefupdates)
+	}
+
 }
 
 func TestInitRepoTwice(t *testing.T) {
@@ -81,5 +115,10 @@ func TestInitRepoTwice(t *testing.T) {
 		if fi, err := os.Stat(path); err != nil || !fi.IsDir() {
 			t.Errorf("expected directory %s missing after second init", d)
 		}
+	}
+
+	configPath := filepath.Join(repoPath, "config")
+	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+		t.Fatalf("config file missing after second init")
 	}
 }

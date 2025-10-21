@@ -16,4 +16,16 @@ git client written in go for fun
 - [x] commit
 - [x] log
 - [x] branch
-- [ ] checkout
+- [x] checkout
+- [x] config
+- [ ] remote
+- [ ] ssh layer
+- [ ] git wire protocol v2
+- [ ] packfile
+- [ ] fetch
+- [ ] clone
+- [ ] push
+- [ ] pull
+- [ ] diff
+- [ ] reset
+- [ ] stash

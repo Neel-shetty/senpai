@@ -18,7 +18,7 @@ git client written in go for fun
 - [x] branch
 - [x] checkout
 - [x] config
-- [ ] remote
+- [x] remote
 - [ ] ssh layer
 - [ ] git wire protocol v2
 - [ ] packfile
